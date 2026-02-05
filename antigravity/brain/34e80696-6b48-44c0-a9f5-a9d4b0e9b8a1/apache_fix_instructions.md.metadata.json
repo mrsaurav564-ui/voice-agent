@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Step-by-step instructions for fixing the Apache 404 error by updating the DocumentRoot configuration from C: drive to D: drive where the project files are actually located.",
+  "updatedAt": "2025-11-21T00:57:57.400444300Z"
+}

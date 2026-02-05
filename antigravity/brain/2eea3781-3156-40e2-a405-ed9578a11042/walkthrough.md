@@ -1,0 +1,28 @@
+# Amarsingh Secondary School Website - Frontend Walkthrough
+
+## Overview
+I have successfully implemented the Public Frontend and the Admin Dashboard UI.
+**Critical Build Fixes**: Resolved persistent compilation errors related to `react-hook-form` and `@hookform/resolvers` by implementing local resolvers and patching dependencies.
+
+## Completed Features
+
+### 1. Public Frontend
+- **Hero Page**: Modern design with animations and stats.
+- **Information Sections**: About, Academic, Contact pages.
+- **Contact Form**: Functional UI using local Zod implementation.
+
+### 2. Admin Dashboard (UI Available)
+- **URL**: `/admin` (Auth temporarily bypassed for review)
+- **Layout**: Responsive Sidebar + Header + UserNav.
+- **Dashboard Home**: Analytics cards (Students, Staff, Revenue).
+- **Staff Management**: `/admin/staff` - Table view for managing school staff.
+
+### 3. Technical Implementation
+- **Build System**: Fixed `Module not found` errors. Production build (`npm run build`) is now **PASSING**.
+- **Components**: Shadcn UI (Sheet, Dropdown, Table, Avatar, Form, etc.).
+- **Icons**: Lucide React.
+- **Local Resolvers**: Custom implementation of `zodResolver` to ensure stability.
+
+## Next Steps
+- **Database**: Connect PostgreSQL to enable real authentication and data.
+- **School Dashboard**: Implement the staff portal (Phase 5).

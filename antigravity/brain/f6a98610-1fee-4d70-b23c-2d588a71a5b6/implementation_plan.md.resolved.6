@@ -1,0 +1,42 @@
+# Dashboard Auth & Sales Analytics Implementation Plan
+
+The goal is to secure the `/dashboard` route with a simple owner login and add a sales summary section to the dashboard.
+
+## 1. Authentication System
+Since the requirement is simple ("only known to the owner"), we will implement a lightweight cookie-based authentication.
+
+### Credentials
+- **Username**: `admin`
+- **Password**: `cafe123` (We will store these in [.env](file:///c:/cafe/.env) for security best practices, referencing them as `ADMIN_USERNAME` and `ADMIN_PASSWORD`).
+
+### Components
+- **[NEW] [src/app/login/page.tsx](file:///c:/cafe/src/app/login/page.tsx)**: Simple login form.
+- **[NEW] [src/app/api/login/route.ts](file:///c:/cafe/src/app/api/login/route.ts)**: Validates credentials and sets a `auth_token` cookie (HTTP-only).
+- **[NEW] [src/middleware.ts](file:///c:/cafe/src/middleware.ts)**: Intercepts requests to `/dashboard`. If `auth_token` is missing, redirects to `/login`.
+- **[NEW] [src/app/api/logout/route.ts](file:///c:/cafe/src/app/api/logout/route.ts)**: Clears the cookie.
+
+## 2. Sales Summary (Analytics)
+We will add a "Sales" tab to the dashboard showing daily and monthly performance.
+
+### Logic
+- **Daily Sales**: Sum of [total](file:///c:/cafe/src/lib/store.ts#60-63) for orders created today where status != 'CANCELLED'.
+- **Monthly Sales**: Sum of [total](file:///c:/cafe/src/lib/store.ts#60-63) for orders created this month.
+- **Top Items**: (Optional benefit) Count of items sold.
+
+### Components
+- **[NEW] [src/app/api/stats/route.ts](file:///c:/cafe/src/app/api/stats/route.ts)**:
+    - Uses Prisma `groupBy` or `aggregate` to calculate totals.
+    - Returns `{ dailyTotal, monthlyTotal, dailyCount, monthlyCount }`.
+- **[NEW] [src/components/sales-summary.tsx](file:///c:/cafe/src/components/sales-summary.tsx)**:
+    - Fetches data from `/api/stats`.
+    - Displays cards for "Today's Sales" and "Monthly Sales".
+- **[MODIFY] [src/app/dashboard/page.tsx](file:///c:/cafe/src/app/dashboard/page.tsx)**:
+    - Add "Stats" tab.
+    - Add "Logout" button in the header.
+
+## Verification
+1.  Try accessing `/dashboard` -> Should redirect to `/login`.
+2.  Login with wrong creds -> Error.
+3.  Login with correct creds -> Redirect to `/dashboard`.
+4.  Check Sales tab -> Should show $0 (or calculated total from test orders).
+5.  Place a new order -> Refresh dashboard -> Sales should increase.

@@ -1,0 +1,44 @@
+# Split Login Pages by Role
+
+The goal is to create separate login pages for each user role (Citizen, Federal, Province, Local) so that accessing a specific URL (e.g., `loginc.html`) directly loads the login form for that role.
+
+## User Review Required
+
+> [!IMPORTANT]
+> I will be creating new HTML files (`loginc.html`, `logins.html`, `loginp.html`, `loginl.html`) based on [index.html](file:///d:/xampp/htdocs/Hackathon/backend/index.html).
+> The new pages will automatically open the authentication modal with the specific role pre-selected.
+> I will remove the landing page content from these specific login pages to focus on the login experience.
+
+## Proposed Changes
+
+### Backend Directory
+
+#### [NEW] [loginc.html](file:///d:/xampp/htdocs/Hackathon/backend/loginc.html)
+- Copy of [index.html](file:///d:/xampp/htdocs/Hackathon/backend/index.html).
+- Remove landing page sections (Hero, Services, etc.).
+- Add script to automatically show auth modal with 'citizen' role.
+- Hide role selection tabs or pre-select 'citizen'.
+
+#### [NEW] [logins.html](file:///d:/xampp/htdocs/Hackathon/backend/logins.html)
+- Copy of [index.html](file:///d:/xampp/htdocs/Hackathon/backend/index.html).
+- Remove landing page sections.
+- Add script to automatically show auth modal with 'federal' role.
+
+#### [NEW] [loginp.html](file:///d:/xampp/htdocs/Hackathon/backend/loginp.html)
+- Copy of [index.html](file:///d:/xampp/htdocs/Hackathon/backend/index.html).
+- Remove landing page sections.
+- Add script to automatically show auth modal with 'provincial' role.
+
+#### [NEW] [loginl.html](file:///d:/xampp/htdocs/Hackathon/backend/loginl.html)
+- Copy of [index.html](file:///d:/xampp/htdocs/Hackathon/backend/index.html).
+- Remove landing page sections.
+- Add script to automatically show auth modal with 'local' role.
+
+## Verification Plan
+
+### Manual Verification
+- Open `loginc.html` in browser -> Should show Citizen login.
+- Open `logins.html` in browser -> Should show Federal login.
+- Open `loginp.html` in browser -> Should show Province login.
+- Open `loginl.html` in browser -> Should show Local login.
+- Verify that the correct role is selected and the form is visible.

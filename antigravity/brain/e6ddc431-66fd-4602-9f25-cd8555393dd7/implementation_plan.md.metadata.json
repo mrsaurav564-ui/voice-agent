@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Fix syntax error in `logins.html` by correcting `showToast` function and moving account creation logic to a new form submit handler.",
+  "updatedAt": "2025-11-20T18:43:56.966586500Z"
+}

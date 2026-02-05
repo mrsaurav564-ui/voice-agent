@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Plan to migrate from SQLite/LocalFS to Postgres/Cloudinary for Netlify deployment",
+  "updatedAt": "2026-01-31T16:47:47.808136900Z",
+  "version": "7"
+}

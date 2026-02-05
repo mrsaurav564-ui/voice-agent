@@ -1,0 +1,172 @@
+# User Registration System with Separate Authentication and Profile Tables
+
+This implementation creates a comprehensive PHP and MySQL registration system with password validation, separate database tables for authentication and profile data, and a profile completion workflow.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Database Configuration**: The system uses default XAMPP settings (host: localhost, user: root, password: empty). If your MySQL configuration is different, you'll need to update [config/database.php](file:///d:/xampp2/htdocs/uploded%20file/config/database.php).
+
+> [!IMPORTANT]
+> **National ID Format**: The system auto-generates National IDs in format `NP-YYYY-XXXXXX` (e.g., NP-2025-123456). This format can be customized in the [generateNationalID()](file:///d:/xampp2/htdocs/uploded%20file/config/database.php#60-70) function in [config/database.php](file:///d:/xampp2/htdocs/uploded%20file/config/database.php).
+
+## Proposed Changes
+
+### Database Layer
+
+#### [NEW] [schema.sql](file:///d:/xampp2/htdocs/uploded%20file/database/schema.sql)
+
+Creates three tables:
+- **`users`**: Stores authentication data (email, password_hash, national_id)
+- **`user_profiles`**: Stores complete profile information linked by national_id (personal info, address, documents)
+- **`activity_log`**: Tracks user activities for security and auditing
+
+The `national_id` field serves as the primary link between tables, ensuring profile data is accessible across all applications.
+
+---
+
+### Configuration Layer
+
+#### [NEW] [database.php](file:///d:/xampp2/htdocs/uploded%20file/config/database.php)
+
+Provides:
+- Database connection management
+- Input sanitization helpers
+- National ID generation (format: NP-YYYY-XXXXXX)
+- Activity logging functionality
+
+---
+
+### API Layer
+
+#### [NEW] [register.php](file:///d:/xampp2/htdocs/uploded%20file/api/register.php)
+
+Registration endpoint with:
+- **Password validation**: Enforces at least 8 characters, 1 uppercase, 1 number, 1 special character
+- **Email validation**: Checks format and prevents duplicates
+- **Transaction-based creation**: Creates entries in both `users` and `user_profiles` tables atomically
+- **Response**: Returns national_id for profile completion
+
+#### [NEW] [complete_profile.php](file:///d:/xampp2/htdocs/uploded%20file/api/complete_profile.php)
+
+Profile completion endpoint that:
+- Updates `user_profiles` table with complete information
+- Accepts personal info, address, and identity documents
+- Links data using national_id
+- Marks profile as completed when all required fields are filled
+
+---
+
+### Frontend Layer
+
+#### [NEW] [register.html](file:///d:/xampp2/htdocs/uploded%20file/register.html)
+
+Beautiful registration page featuring:
+- Real-time password strength indicator
+- Visual validation feedback for all password requirements
+- Email format validation
+- Password confirmation matching
+- Responsive design with gradient styling
+- Toast notifications for success/error states
+- Auto-redirect to home.html after successful registration
+
+#### [NEW] [profile_completion.js](file:///d:/xampp2/htdocs/uploded%20file/js/profile_completion.js)
+
+JavaScript module that:
+- Integrates with existing profile setup modal in home.html
+- Manages 4-step profile completion workflow
+- Validates each step before proceeding
+- Submits complete profile data to API
+- Updates UI with user information
+- Stores completion status in localStorage
+
+---
+
+## Verification Plan
+
+### Database Setup
+
+1. **Import the database schema**:
+   ```bash
+   # Navigate to phpMyAdmin or use MySQL command line
+   mysql -u root -p < "d:\xampp2\htdocs\uploded file\database\schema.sql"
+   ```
+   
+2. **Verify tables were created**:
+   - Open phpMyAdmin (http://localhost/phpmyadmin)
+   - Check that `user_management` database exists
+   - Verify `users`, `user_profiles`, and `activity_log` tables are present
+
+### Automated API Testing
+
+1. **Test registration endpoint**:
+   ```bash
+   # Test with valid data
+   curl -X POST http://localhost/uploded%20file/api/register.php \
+     -H "Content-Type: application/json" \
+     -d '{"full_name":"John Doe","email":"john@example.com","password":"Test@123"}'
+   
+   # Expected: 201 status with national_id in response
+   ```
+
+2. **Test password validation**:
+   ```bash
+   # Test with weak password (should fail)
+   curl -X POST http://localhost/uploded%20file/api/register.php \
+     -H "Content-Type: application/json" \
+     -d '{"full_name":"Jane Doe","email":"jane@example.com","password":"weak"}'
+   
+   # Expected: 400 status with validation errors
+   ```
+
+3. **Test profile completion**:
+   ```bash
+   # Use national_id from registration response
+   curl -X POST http://localhost/uploded%20file/api/complete_profile.php \
+     -H "Content-Type: application/json" \
+     -d '{"national_id":"NP-2025-123456","full_name":"John Doe","date_of_birth":"1990-01-01","gender":"male","mobile_number":"+977 9812345678","province":"3","district":"Kathmandu","municipality":"Kathmandu Metro","ward_no":1}'
+   
+   # Expected: 200 status with updated profile data
+   ```
+
+### Manual Browser Testing
+
+1. **Test Registration Flow**:
+   - Open http://localhost/uploded%20file/register.html
+   - Fill in the registration form
+   - Verify password strength indicator updates in real-time
+   - Try submitting with weak password (should show validation errors)
+   - Submit with valid data meeting all requirements
+   - Verify success toast appears and redirect to home.html occurs
+
+2. **Test Profile Completion**:
+   - After registration, home.html should automatically show profile setup modal
+   - Complete all 4 steps:
+     - Step 1: Personal Information (required fields)
+     - Step 2: Profile Photo (optional)
+     - Step 3: Address Information (required fields)
+     - Step 4: Identity Documents (optional)
+   - Verify "Next" button changes to "Complete Profile" on last step
+   - Submit and verify profile data appears in the UI
+
+3. **Verify Database Entries**:
+   - Open phpMyAdmin
+   - Check `users` table for new entry with hashed password
+   - Check `user_profiles` table for corresponding entry with same national_id
+   - Verify `activity_log` table has registration and profile update entries
+
+### Data Accessibility Testing
+
+1. **Verify data can be accessed by national_id**:
+   ```sql
+   -- Query to get complete user data
+   SELECT u.email, u.national_id, p.*
+   FROM users u
+   JOIN user_profiles p ON u.national_id = p.national_id
+   WHERE u.national_id = 'NP-2025-123456';
+   ```
+
+2. **Confirm profile data is available for other applications**:
+   - The `user_profiles` table can be queried by any application using the national_id
+   - All profile data is stored in a single table for easy access
+   - Foreign key constraints ensure data integrity

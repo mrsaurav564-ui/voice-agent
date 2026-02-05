@@ -1,0 +1,6 @@
+# Tasks
+
+- [ ] Fix TypeScript error in menu-manager.tsx <!-- id: 0 -->
+    - [ ] Analyze the error "Type 'Timeout' has no call signatures" <!-- id: 1 -->
+    - [ ] Apply fix to the code <!-- id: 2 -->
+    - [ ] Verify the fix <!-- id: 3 -->

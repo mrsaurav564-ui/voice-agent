@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Add delete functionality for menu items.\n1. Add DELETE endpoint to `/api/menu`.\n2. Update `MenuManager` to list items and allow deletion.",
+  "updatedAt": "2026-02-01T17:10:55.977341200Z"
+}

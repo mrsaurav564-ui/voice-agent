@@ -1,5 +1,4 @@
-antigravity/
-antigravity-browser-profile/
+Antigravity-browser-profile/
 node_modules/
 .env
 .DS_Store

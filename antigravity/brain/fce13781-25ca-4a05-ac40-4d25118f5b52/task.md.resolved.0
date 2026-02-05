@@ -1,0 +1,32 @@
+# XYZ College - Pratishtha Digital - Task List
+
+- [ ] **Project Setup**
+    - [ ] Create project directory and file structure (HTML, CSS, JS, Assets)
+    - [ ] Create `implementation_plan.md`
+- [ ] **Asset Generation** <!-- id: 1 -->
+    - [ ] Generate Hero Background (Drone shot)
+    - [ ] Generate Principal Portrait
+    - [ ] Generate Student Profiles (Placeholder images)
+    - [ ] Generate Design Assets (Patterns, Icons if needed)
+- [ ] **Core Layout & Styling** <!-- id: 2 -->
+    - [ ] Setup `index.html` skeleton with SEO tags
+    - [ ] Setup `styles.css` with Variables (Colors, Fonts) and Reset
+    - [ ] Implement responsive grid/layout system
+- [ ] **Section Implementation** <!-- id: 3 -->
+    - [ ] **Header**: Sticky nav, branding, login button
+    - [ ] **Hero**: Fullscreen, Cinematic hook, Gradient overlay, CTAs
+    - [ ] **Trust Section**: 3 Glassmorphism cards with hover effects
+    - [ ] **Legacy Timeline**: Vertical interactive timeline
+    - [ ] **Student Directory**: Grid layout, hover lift effects
+    - [ ] **Principal & Mission**: Split screen layout
+    - [ ] **Feedback**: Auto-scrolling carousel and form
+    - [ ] **Student Portal Preview**: Dashboard layout/section
+    - [ ] **Footer**: Links and Contact
+- [ ] **Interactivity & Polish** <!-- id: 4 -->
+    - [ ] Implement `script.js` for sticky header transition
+    - [ ] Add scroll animations (IntersectionObserver)
+    - [ ] Implement Carousel logic
+- [ ] **Verification** <!-- id: 5 -->
+    - [ ] Verify responsiveness (Mobile, Tablet, Desktop)
+    - [ ] Verify animations and interactions
+    - [ ] Final visual polish check

@@ -1,0 +1,45 @@
+# Amarsingh Secondary School Website - Frontend Walkthrough
+
+## Overview
+I have successfully implemented the Public Frontend for the Amarsingh Secondary School website. This includes the Hero page, About Us, Academic Programs, and Contact sections, featuring a sophisticated, modern design with animations and responsive layouts.
+
+## Completed Features
+
+### 1. Hero Page
+- **Referenced Design**: Inspired by `sxc.edu.np` but modernized.
+- **Components**:
+    - **Dynamic Navbar**: Responsive navigation with dropdowns for "About" and "Academic".
+    - **Hero Section**: Large typography, gradient text, and "Apply Now" call-to-action.
+    - **Stats Section**: Key metrics (Years of Legacy, Students, Faculty).
+    - **Feature Grid**: Highlights of Academic Excellence, Expert Faculty, and Holistic Development.
+
+### 2. Information Sections
+- **About Us**:
+    - Detailed history of the school since 1957.
+    - Principal's message with a placeholder for the image.
+    - Mission & Vision cards.
+- **Academic Programs**:
+    - Detailed cards for Science, Management, Law, and Humanities streams.
+    - Lists key subjects for each stream.
+- **Contact Us**:
+    - Functional-looking contact form (React Hook Form + Zod).
+    - School address, phone, and email details with icons.
+    - Administration hours.
+
+### 3. Technical Implementation
+- **Framework**: Next.js 15 (App Router).
+- **Styling**: Tailwind CSS v4 + Shadcn UI.
+- **Components**: Reusable UI components (Button, Card, NavigationMenu, Form, Input, etc.).
+- **Icons**: Lucide React for consistent iconography.
+
+## Next Steps
+- **Database Connection**: Resolve the PostgreSQL connection issue to enable the backend.
+- **Admin & School Portals**: Implement the dashboards once the database is active.
+- **RBAC**: Enforce role-based access control.
+
+## Screenshots
+*(Visualization of the implemented pages)*
+- **Home**: Hero banner with gradient text.
+- **About**: Clean layout with typography focus.
+- **Academic**: Grid of cards for each stream.
+- **Contact**: Split layout with info and form.

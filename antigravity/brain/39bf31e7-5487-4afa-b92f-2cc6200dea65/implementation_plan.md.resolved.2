@@ -1,0 +1,209 @@
+# Government Portal - Authentication & Dashboard System
+
+## Goal Description
+
+Implement a complete authentication and dashboard system with MySQL database for four user roles with unique dashboards and features:
+
+**Federal Government**: Upload and manage projects (road alignments, land impact assessments, public notices)
+
+**Local Government**: Raise and track concerns (issues, disputes, objections to federal projects)
+
+**Provincial Government**: Coordinate between federal and local, oversight and mediation
+
+**Citizens**: View public projects, timeline, and status updates
+
+**Shared Features**: Timeline tracking, status updates, conflict heatmap, notifications
+
+The system will use secure password hashing (bcrypt), session-based authentication, and role-based access control.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **Database Configuration**: Using MySQL on `localhost:3306` with database name `government_portal` and root user (no password for XAMPP default).
+
+> [!WARNING]
+> **Password Security**: All existing passwords will need to be re-entered as they will be hashed using bcrypt. Plain text passwords cannot be migrated.
+
+> [!IMPORTANT]
+> **Session Management**: Users will be redirected to login page if not authenticated. Dashboard pages will need to include session validation checks.
+
+## Proposed Changes
+
+### Database Layer
+
+#### [NEW] [db_config.php](file:///c:/xampp2/htdocs/backend/db_config.php)
+- Database connection configuration
+- PDO connection with error handling
+- Secure credential storage
+
+#### [NEW] [mysql.sql](file:///c:/xampp2/htdocs/backend/mysql.sql)
+- **User Tables** (4 tables for each role):
+  - `users_citizen`, `users_local`, `users_province`, `users_federal`
+  - Fields: [id](file:///c:/xampp2/htdocs/backend/index.html#3441-3444), `username`, `email`, `password_hash`, `full_name`, `created_at`, `last_login`, `is_active`
+- **Projects Table** (`projects`):
+  - Fields: [id](file:///c:/xampp2/htdocs/backend/index.html#3441-3444), `title`, `type` (road/land_impact/notice), `description`, `location`, `status`, `uploaded_by` (federal user), `created_at`, `updated_at`
+- **Concerns Table** (`concerns`):
+  - Fields: [id](file:///c:/xampp2/htdocs/backend/index.html#3441-3444), `project_id` (FK), `type` (issue/dispute/objection), `description`, `status`, `raised_by` (local user), `created_at`, `updated_at`
+- **Timeline Table** (`timeline_events`):
+  - Fields: [id](file:///c:/xampp2/htdocs/backend/index.html#3441-3444), `project_id`, `event_type`, `description`, `created_by`, `created_at`
+- **Notifications Table** (`notifications`):
+  - Fields: [id](file:///c:/xampp2/htdocs/backend/index.html#3441-3444), `user_id`, `user_role`, `message`, `type`, `is_read`, `created_at`
+
+---
+
+### Authentication API
+
+#### [MODIFY] [api/login.php](file:///c:/xampp2/htdocs/backend/api/login.php)
+- Replace JSON file storage with database authentication
+- Implement password verification using `password_verify()`
+- Create PHP sessions for authenticated users
+- Return user data and session token on successful login
+- Add rate limiting to prevent brute force attacks
+- Validate input (username/email format, password strength)
+
+#### [NEW] [api/register.php](file:///c:/xampp2/htdocs/backend/api/register.php)
+- User registration endpoint for all roles
+- Password hashing using `password_hash()` with bcrypt
+- Input validation:
+  - Username: 3-50 characters, alphanumeric + underscore
+  - Email: valid email format
+  - Password: minimum 8 characters, must include uppercase, lowercase, number
+- Check for duplicate username/email
+- Insert new user into appropriate role table
+
+#### [NEW] [api/logout.php](file:///c:/xampp2/htdocs/backend/api/logout.php)
+- Destroy PHP session
+- Clear session cookies
+- Return success response
+
+#### [NEW] [api/check_session.php](file:///c:/xampp2/htdocs/backend/api/check_session.php)
+- Validate if user session is active
+- Return user role and basic info
+- Used by frontend to protect dashboard access
+
+---
+
+### Frontend Updates
+
+#### [NEW] [login.html](file:///c:/xampp2/htdocs/backend/login.html)
+- Copy content from [login.txt](file:///c:/xampp2/htdocs/backend/login.txt)
+- Update JavaScript to handle authentication responses
+- Store session data in localStorage
+- Redirect to role-specific dashboard on successful login
+- Display validation errors from API
+
+#### [NEW] [register.html](file:///c:/xampp2/htdocs/backend/register.html)
+- Registration form with role selector
+- Client-side validation for password strength
+- Submit to `/api/register` endpoint
+- Redirect to login page after successful registration
+
+#### [MODIFY] [index.html](file:///c:/xampp2/htdocs/backend/index.html)
+- Add session check on page load
+- Redirect to `/login` if not authenticated
+- Add logout button in navigation
+- Display user role and username
+
+#### [MODIFY] [router.php](file:///c:/xampp2/htdocs/backend/router.php)
+- Add route for `/register` → `register.html`
+- Add route for `/logout` → logout and redirect to login
+- Ensure login.html is served for login routes
+
+---
+
+### Security & Validation
+
+#### [NEW] [includes/session_guard.php](file:///c:/xampp2/htdocs/backend/includes/session_guard.php)
+- Reusable PHP session validation
+- Include at top of protected pages
+- Redirect to login if session invalid
+
+#### [NEW] [includes/validators.php](file:///c:/xampp2/htdocs/backend/includes/validators.php)
+- Input validation functions:
+  - `validateUsername($username)` - alphanumeric, 3-50 chars
+  - `validateEmail($email)` - valid email format
+  - `validatePassword($password)` - min 8 chars, complexity requirements
+  - `sanitizeInput($input)` - XSS prevention
+
+## Verification Plan
+
+### Automated Tests
+
+**Database Setup Test**
+```bash
+# Run from c:\xampp2\htdocs\backend
+mysql -u root -p < mysql.sql
+# Verify tables created
+mysql -u root -p -e "USE government_portal; SHOW TABLES;"
+```
+
+**API Endpoint Tests** (using browser console or Postman)
+```javascript
+// Test 1: Register new user
+fetch('/backend/api/register', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    role: 'citizen',
+    username: 'testuser',
+    email: 'test@example.com',
+    password: 'Test1234!'
+  })
+}).then(r => r.json()).then(console.log);
+
+// Test 2: Login with registered user
+fetch('/backend/api/login', {
+  method: 'POST',
+  headers: {'Content-Type': 'application/json'},
+  body: JSON.stringify({
+    role: 'citizen',
+    identifier: 'testuser',
+    password: 'Test1234!'
+  })
+}).then(r => r.json()).then(console.log);
+
+// Test 3: Check session
+fetch('/backend/api/check_session')
+  .then(r => r.json()).then(console.log);
+```
+
+### Manual Verification
+
+**User Registration Flow**
+1. Navigate to `http://localhost/backend/register`
+2. Select role (citizen, local, province, or federal)
+3. Fill in username, email, password
+4. Submit form
+5. **Expected**: Success message, redirect to login page
+6. **Verify**: Check database table for new user record
+
+**Login Authentication Flow**
+1. Navigate to `http://localhost/backend/login`
+2. Select same role as registered user
+3. Enter username and password
+4. Click "Login"
+5. **Expected**: Success toast, redirect to dashboard (index.html)
+6. **Verify**: User stays logged in, can access dashboard
+
+**Dashboard Protection**
+1. Open new incognito window
+2. Navigate directly to `http://localhost/backend/`
+3. **Expected**: Automatic redirect to `/backend/login`
+4. After login, should return to dashboard
+5. **Verify**: Cannot access dashboard without authentication
+
+**Logout Functionality**
+1. While logged in, click logout button
+2. **Expected**: Redirect to login page
+3. Try accessing dashboard
+4. **Expected**: Redirect back to login (session cleared)
+
+**Validation Tests**
+1. Try registering with weak password (e.g., "123")
+   - **Expected**: Error message about password requirements
+2. Try registering with existing username
+   - **Expected**: Error message "Username already exists"
+3. Try logging in with wrong password
+   - **Expected**: Error message "Invalid credentials"
+4. Try logging in with wrong role
+   - **Expected**: Error message "User not found for this role"

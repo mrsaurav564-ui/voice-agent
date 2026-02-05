@@ -1,0 +1,29 @@
+# Login Pages Split Walkthrough
+
+I have split the login functionality into separate HTML files as requested. Each file is optimized for a specific user role and automatically opens the login modal.
+
+## Changes
+
+### New Files Created
+
+| File | Role | Description |
+| :--- | :--- | :--- |
+| [loginc.html](file:///d:/xampp/htdocs/Hackathon/backend/loginc.html) | **Citizen** | Auto-opens Citizen login. Landing page content removed. |
+| [logins.html](file:///d:/xampp/htdocs/Hackathon/backend/logins.html) | **Federal** | Auto-opens Federal (State) login. Landing page content removed. |
+| [loginp.html](file:///d:/xampp/htdocs/Hackathon/backend/loginp.html) | **Province** | Auto-opens Provincial login. Landing page content removed. |
+| [loginl.html](file:///d:/xampp/htdocs/Hackathon/backend/loginl.html) | **Local** | Auto-opens Local login. Landing page content removed. |
+
+## Verification Results
+
+### Manual Verification
+- **Citizen Login**: Opening [loginc.html](file:///d:/xampp/htdocs/Hackathon/backend/loginc.html) automatically shows the auth modal with the "Citizen" role selected. The close button is hidden to keep the user focused.
+- **Federal Login**: Opening [logins.html](file:///d:/xampp/htdocs/Hackathon/backend/logins.html) automatically shows the auth modal with the "Federal" role selected.
+- **Province Login**: Opening [loginp.html](file:///d:/xampp/htdocs/Hackathon/backend/loginp.html) automatically shows the auth modal with the "Province" role selected.
+- **Local Login**: Opening [loginl.html](file:///d:/xampp/htdocs/Hackathon/backend/loginl.html) automatically shows the auth modal with the "Local" role selected.
+
+### Code Verification
+- Verified that the landing page sections (Hero, Services, etc.) were successfully removed from the new files.
+- Verified that the auto-login script was correctly injected at the end of the `<body>` tag.
+
+## Next Steps
+- You can now link to these specific pages from your main application or distribute the URLs to the respective users.

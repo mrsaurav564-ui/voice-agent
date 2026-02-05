@@ -1,0 +1,35 @@
+# Menu System Implementation Walkthrough
+
+I have successfully implemented the database-backed menu system, reverted to SQLite, fixed the order persistence issue, redesign the home page, added a real-time notification system, and enabled image uploads for menu items.
+
+## Changes
+
+### New Feature: Image Uploads
+- **Manager Interface**: The "Add Menu Item" form in the dashboard now includes an **Image** file input.
+- **Backend Storage**: Uploaded images are saved to `public/uploads`.
+- **Database**: The file path is correctly stored in the SQLite database.
+
+### Notification System
+- **Order Tracking**: Implemented client-side tracking of user orders using `useCartStore` with persistence (localStorage).
+- **Notifications**: Created `OrderTracker` component that polls the server for changes in order status and triggers toast notifications.
+- **UI Feedback**: Integrated `sonner` for beautiful, animated toast notifications when orders move to "Preparing" or "Served".
+
+### Database & Backend
+- **Prisma Migration**: Migrated `orders`, `requests`, and `reviews` API routes from a mock filesystem DB to the SQLite database via Prisma. This ensures data is correctly saved and visible in the dashboard.
+- **Models**: Added `Order`, `ServiceRequest`, `Review`, `Category`, and `MenuItem` models to `prisma/schema.prisma`.
+
+### Frontend Redesign
+- **Home Page**: Completely overhauled `src/app/page.tsx` with a modern, vibrant design featuring glassmorphism and animations.
+- **Global CSS**: Added custom animations (`slow-zoom`, `bounce-subtle`) and utility classes.
+
+## Verification Results
+
+### Functionality
+- **Image Upload**: When adding a new item in the dashboard, you can now select an image file. It will be displayed on the home page menu card.
+- **Notifications**: When you place an order, the system tracks it. If you (or the kitchen staff) update the status in the dashboard, a toast notification appears on the home page.
+- **Data Persistence**: Orders are saved to `dev.db` via Prisma.
+- **Home Page**: Accessible at `http://localhost:3000`.
+- **Dashboard**: Accessible at `http://localhost:3000/dashboard`.
+
+> [!NOTE]
+> The server is running. You can fully manage the menu and process orders.

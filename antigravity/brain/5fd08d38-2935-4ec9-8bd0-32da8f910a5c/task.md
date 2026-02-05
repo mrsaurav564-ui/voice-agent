@@ -1,0 +1,11 @@
+- [x] Explore `index.html` to understand current login structure <!-- id: 0 -->
+- [x] Create `implementation_plan.md` <!-- id: 1 -->
+- [x] Create `loginc.html` for Citizen <!-- id: 2 -->
+- [x] Create `logins.html` for Federal/State <!-- id: 3 -->
+- [x] Create `loginp.html` for Province <!-- id: 4 -->
+- [x] Create `loginl.html` for Local <!-- id: 5 -->
+- [x] Verify the new pages <!-- id: 6 -->
+- [x] Initialize Node.js project (`package.json`) <!-- id: 7 -->
+- [x] Create `server.js` with Express <!-- id: 8 -->
+- [x] Update login pages to POST data to server <!-- id: 9 -->
+- [x] Verify server and data storage <!-- id: 10 -->

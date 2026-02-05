@@ -1,0 +1,58 @@
+# Tasks
+
+- [x] Analyze file [src/lib/prisma.ts](file:///c:/cafe/src/lib/prisma.ts) and [package.json](file:///c:/cafe/package.json)
+- [x] Fix Prisma Client Generation
+    - [x] Diagnose `DATABASE_URL` environment issue (Confirmed working with Prisma 5)
+    - [x] Verify Prisma version (Downgraded to 5.22.0)
+    - [x] Run `npx prisma generate` successfully
+- [x] Verify fix
+
+# Menu System Implementation
+- [ ] Database & Config
+    - [x] Update [schema.prisma](file:///c:/cafe/prisma/schema.prisma) with [Category](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#9-14) and `MenuItem` models
+    - [x] Update [package.json](file:///c:/cafe/package.json) with seed script
+    - [x] Run migration and seed
+- [ ] API Routes
+    - [x] Create [api/categories/route.ts](file:///c:/cafe/src/app/api/categories/route.ts)
+    - [x] Create [api/menu/route.ts](file:///c:/cafe/src/app/api/menu/route.ts)
+- [x] Frontend
+    - [x] Update [MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#15-119) component
+
+# SQLite Reversion
+- [ ] Configuration
+    - [x] Revert [schema.prisma](file:///c:/cafe/prisma/schema.prisma) to sqlite
+    - [x] Revert [.env](file:///c:/cafe/.env) to file path
+- [ ] Database Setup
+    - [x] Clean up migrations
+    - [x] Run `prisma migrate dev`
+    - [x] Run `prisma db seed`
+
+# Bugchecking
+- [x] Fix Tailwind Error
+    - [x] Install `tailwindcss-animate`
+
+- [x] Restart Server & Verify
+- [ ] Fix Missing Images
+    - [x] Verify `public` directory content
+    - [/] Update [src/lib/data.ts](file:///c:/cafe/src/lib/data.ts) or generate placeholders
+
+# Redesign & Fix Order Flow
+- [ ] Backend (Functional Fix)
+    - [x] Migrate [src/app/api/orders/route.ts](file:///c:/cafe/src/app/api/orders/route.ts) to Prisma
+    - [x] Migrate [src/app/api/requests/route.ts](file:///c:/cafe/src/app/api/requests/route.ts) to Prisma
+    - [x] Migrate [src/app/api/reviews/route.ts](file:///c:/cafe/src/app/api/reviews/route.ts) to Prisma
+- [ ] Frontend (Design Overhaul)
+    - [x] Redesign [src/app/page.tsx](file:///c:/cafe/src/app/page.tsx)
+    - [x] Improve [src/app/globals.css](file:///c:/cafe/src/app/globals.css)
+- [x] Verify functionality and design
+
+# Notification System
+- [x] Store & Logic
+    - [x] Update `useCartStore` to track `myOrderIds` (persist logic)
+    - [x] Create [OrderTracker](file:///c:/cafe/src/components/order-tracker.tsx#7-51) component for polling
+- [x] UI Components
+    - [x] Install/Verify `toast` component
+    - [x] Add `Toaster` to [layout.tsx](file:///c:/cafe/src/app/layout.tsx)
+- [x] Integration
+    - [x] Update [CartSheet](file:///c:/cafe/src/components/cart-sheet.tsx#21-137) to save order ID on success
+    - [x] Verify notifications on status change

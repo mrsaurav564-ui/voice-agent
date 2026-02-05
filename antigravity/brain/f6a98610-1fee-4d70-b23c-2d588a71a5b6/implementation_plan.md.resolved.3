@@ -1,0 +1,51 @@
+# Notification System Implementation Plan
+
+The goal is to notify the user (customer) when their order status changes (e.g., Pending -> Preparing -> Served).
+
+## Challenges
+- **User Identification**: The app currently doesn't require login. Users are anonymous.
+- **Order Tracking**: We need to know *which* orders belong to the current user to notify them.
+- **Real-time**: We don't have WebSockets, so we will use polling.
+
+## Proposed Solution
+
+1.  **Order Tracking**: 
+    - When placing an order, save the `orderId` in the client's `localStorage` (via Zustand store).
+    - Update [CartStore](file:///c:/cafe/src/lib/store.ts#10-23) to maintain a list of `activeOrderIds`.
+
+2.  **Polling & Notifications**:
+    - Create a new component `OrderTracker` (or integrate into [Home](file:///c:/cafe/src/app/page.tsx#18-210)) that:
+        - Polls `/api/orders` (or a new endpoint `/api/orders/status`) every few seconds.
+        - Checks the status of orders matching `activeOrderIds`.
+        - Compares current status with previous status.
+        - Triggers a Toast notification if status changes.
+
+3.  **UI Feedback**:
+    - Use `sonner` or `shadcn/ui` toast.
+
+## detailed Changes
+
+### Database
+- No schema changes required if we track IDs client-side.
+
+### Store ([src/lib/store.ts](file:///c:/cafe/src/lib/store.ts))
+- Add `myOrderIds: string[]` to [CartStore](file:///c:/cafe/src/lib/store.ts#10-23).
+- Add `addOrderId(id: string)` action.
+
+### Components
+- **[NEW] [src/components/order-tracker.tsx](file:///c:/cafe/src/components/order-tracker.tsx)**
+    - Client component.
+    - Uses `useInterval` to poll.
+    - Triggers notifications.
+
+- **[MODIFY] [src/components/cart-sheet.tsx](file:///c:/cafe/src/components/cart-sheet.tsx)**
+    - Call `addOrderId` after successful order placement.
+
+- **[MODIFY] [src/app/layout.tsx](file:///c:/cafe/src/app/layout.tsx)**
+    - Include `<OrderTracker />` and `<Toaster />` so it runs globally.
+
+## Verification
+- Place an order.
+- Open Dashboard in a separate tab.
+- Change order status in Dashboard.
+- Verify Toast appears on Home tab.

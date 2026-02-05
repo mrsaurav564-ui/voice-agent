@@ -1,0 +1,52 @@
+# IMPLMENTATION PLAN - XYZ College "Pratishtha Digital"
+
+## Goal
+Create a sophisticated, premium educational portal for XYZ College that balances academic heritage with modern digital innovation. The site will be responsive, interactive, and visually stunning.
+
+## User Review Required
+> [!IMPORTANT]
+> - **Images**: I will generate AI images for the Hero (Drone shot) and Principal/Students to serve as high-fidelity placeholders.
+> - **Fonts**: Will use Google Fonts (Poppins and Inter) loaded via CDN.
+> - **Icons**: Will use FontAwesome or similar via CDN for icons.
+
+## Proposed Changes
+
+### Structure
+Files to be created in `c:/pixellabs/xyz-college/`:
+- `index.html`: Main entry point.
+- `css/style.css`: Main stylesheet.
+- `js/main.js`: Interaction logic.
+- `assets/images/`: Directory for generated images.
+
+### Design System (CSS Variables)
+- **Colors**:
+    - `--color-primary`: `#002147` (Oxford Navy Blue)
+    - `--color-accent`: `#C5A028` (Sophisticated Gold)
+    - `--color-bg-light`: `#F9F9F9`
+    - `--color-white`: `#FFFFFF`
+- **Typography**:
+    - `--font-heading`: 'Poppins', sans-serif
+    - `--font-body`: 'Inter', sans-serif
+
+### Component Details
+#### [MODIFY] index.html
+- **Header**: Fixed position, `transition: background 0.3s`. Starts transparent, becomes `--color-primary` on scroll.
+- **Hero**: `vh-100` or similar. Background image with overlay `linear-gradient`.
+- **Trust Section**: CSS Grid. Cards with `backdrop-filter: blur(10px)` (Glassmorphism).
+- **Timeline**: `::before` pseudo-element for the line. JS to trigger `active` class on scroll.
+- **Student Directory**: CSS Grid. Cards with `transform: translateY(-5px)` on hover.
+- **Feedback**: CSS flexbox for carousel track. JS for infinite scroll.
+
+#### [NEW] js/main.js
+- Scroll event listener for Header.
+- `IntersectionObserver` for fade-in animations on scroll.
+- Logic for Testimonial Carousel auto-scroll.
+
+## Verification Plan
+### Automated Tests
+- None (Visual Design focus).
+### Manual Verification
+- Open `index.html` in browser.
+- Check Responsive breakpoints (Mobile < 768px, Tablet < 1024px, Desktop).
+- Verify Sticky Header behavior.
+- Verify Timeline animations.

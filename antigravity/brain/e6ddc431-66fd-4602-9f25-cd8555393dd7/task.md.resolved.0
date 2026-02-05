@@ -1,0 +1,6 @@
+- [/] Fix syntax error in [logins.html](file:///d:/xampp/htdocs/Hackathon/backend/logins.html) <!-- id: 0 -->
+    - [x] Analyze the error location <!-- id: 1 -->
+    - [/] Identify the correct location for the misplaced code <!-- id: 2 -->
+    - [ ] Restore [showToast](file:///d:/xampp/htdocs/Hackathon/backend/logins.html#3160-3187) function <!-- id: 3 -->
+    - [ ] Move logic to `createAccountBtn` handler <!-- id: 4 -->
+    - [ ] Verify the fix <!-- id: 5 -->

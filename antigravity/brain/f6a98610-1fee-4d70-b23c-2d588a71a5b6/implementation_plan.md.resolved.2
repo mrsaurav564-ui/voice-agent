@@ -1,0 +1,43 @@
+# Redesign & Order Fix Plan
+
+The goal is to overhaul the design of the home page to make it more attractive and to fix the issue where orders placed from the home page (via cart) are not appearing in the dashboard.
+
+## Issues Identified
+1. **Order Persistence**: The `/api/orders` route is currently using an in-memory `mock-db`, which causes data loss and inconsistency. It needs to use the Prisma database.
+2. **Design**: The current home page design is functional but lacks "wow" factor. It needs a visual upgrade.
+
+## Proposed Changes
+
+### Backend (Functional Fix)
+
+#### [MODIFY] [src/app/api/orders/route.ts](file:///c:/cafe/src/app/api/orders/route.ts)
+- Replace `mock-db` usage with [prisma](file:///c:/cafe/prisma/schema.prisma).
+- Implement [GET](file:///c:/cafe/src/app/api/menu/route.ts#4-14) to fetch orders from the [Order](file:///c:/cafe/src/lib/mock-db.ts#37-43) model.
+- Implement [POST](file:///c:/cafe/src/app/api/orders/route.ts#9-20) to create new orders in the [Order](file:///c:/cafe/src/lib/mock-db.ts#37-43) model.
+- Implement [PUT](file:///c:/cafe/src/app/api/orders/route.ts#21-27) (or `PATCH`) to update order status.
+
+#### [MODIFY] [src/app/api/requests/route.ts](file:///c:/cafe/src/app/api/requests/route.ts)
+- (Likely also using mock-db) Migrate to Prisma `ServiceRequest` model.
+
+#### [MODIFY] [src/app/api/reviews/route.ts](file:///c:/cafe/src/app/api/reviews/route.ts)
+- (Likely also using mock-db) Migrate to Prisma [Review](file:///c:/cafe/src/lib/mock-db.ts#71-77) model.
+
+### Frontend (Design Overhaul)
+
+#### [MODIFY] [src/app/page.tsx](file:///c:/cafe/src/app/page.tsx)
+- **Hero Section**: Use a more immersive background (e.g., full-screen image with overlay), better typography for the title.
+- **Menu Cards**: Improve the card design (glassmorphism, hover effects, better image aspect ratios).
+- **Navigation**: Make the category filter more stylish (e.g., pills with active states).
+- **Theme**: Ensure consistent and vibrant colors (using the existing orange/primary theme but refining it).
+
+#### [MODIFY] [src/app/globals.css](file:///c:/cafe/src/app/globals.css)
+- Add utility classes or animations if needed (e.g., `fade-in`, `slide-up`).
+
+## Verification Plan
+
+### Manual Verification
+1. **Design**: Visually inspect the home page at `http://localhost:3000`.
+2. **Order Flow**: 
+   - Add item to cart.
+   - Place order via [CartSheet](file:///c:/cafe/src/components/cart-sheet.tsx#21-134).
+   - Check `http://localhost:3000/dashboard` to see if the new order appears under "Pending".

@@ -1,0 +1,45 @@
+# Notification System Implementation Plan
+
+The goal is to notify the user (customer) when their order status changes (e.g., Pending -> Preparing -> Served).
+
+## Challenges
+- **User Identification**: The app currently doesn't require login. Users are anonymous.
+- **Order Tracking**: We need to know *which* orders belong to the current user to notify them.
+- **Real-time**: We don't have WebSockets, so we will use polling.
+
+## Proposed Solution
+
+1.  **Order Tracking**: 
+    - When placing an order, save the `orderId` in the client's `localStorage` (via Zustand store).
+    - Update [CartStore](file:///c:/cafe/src/lib/store.ts#11-26) to maintain a list of `activeOrderIds`.
+
+2.  **Polling & Notifications**:
+    - Create a new component [OrderTracker](file:///c:/cafe/src/components/order-tracker.tsx#10-67) (or integrate into [Home](file:///c:/cafe/src/app/page.tsx#18-210)) that:
+        - Polls `/api/orders`.
+        - Checks the status of orders matching `activeOrderIds`.
+        - Compares current status with previous status.
+        - Triggers a Toast notification if status changes.
+
+3.  **UI Feedback**:
+    - Use ~~shadcn/ui toast~~ `sonner` (simpler, less file generation issues).
+
+## detailed Changes
+
+### Database
+- No schema changes required if we track IDs client-side.
+
+### Store ([src/lib/store.ts](file:///c:/cafe/src/lib/store.ts))
+- Add `myOrderIds: string[]` to [CartStore](file:///c:/cafe/src/lib/store.ts#11-26).
+- Add [addOrderId(id: string)](file:///c:/cafe/src/lib/store.ts#36-37) action.
+
+### Components
+- **[NEW] [src/components/order-tracker.tsx](file:///c:/cafe/src/components/order-tracker.tsx)**
+    - Client component.
+    - Uses `useInterval` to poll.
+    - Triggers notifications using `sonner`.
+
+- **[MODIFY] [src/components/cart-sheet.tsx](file:///c:/cafe/src/components/cart-sheet.tsx)**
+    - Call [addOrderId](file:///c:/cafe/src/lib/store.ts#36-37) after successful order placement.
+
+- **[MODIFY] [src/app/layout.tsx](file:///c:/cafe/src/app/layout.tsx)**
+    - Include `<OrderTracker />` and `<Toaster />` (from sonner) so it runs globally.

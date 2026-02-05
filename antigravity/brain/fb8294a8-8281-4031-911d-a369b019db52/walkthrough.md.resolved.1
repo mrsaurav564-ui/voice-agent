@@ -1,0 +1,61 @@
+# Walkthrough - Cafe Ordering System
+
+## Changes Made
+
+### Frontend Architecture
+- **Framework**: Initialized Next.js 14 (App Router) with Tailwind CSS v4.
+- **Theming**: Implemented "Foody" theme with Warm Orange/Terracotta primary colors and Dark/Light mode support.
+- **Components**: Built reusable Shadcn UI components: [Button](file:///c:/cafe/src/components/ui/button.tsx#35-40), [Card](file:///c:/cafe/src/app/dashboard/page.tsx#204-253), [Sheet](file:///c:/cafe/src/components/cart-sheet.tsx#21-118) (Cart), `Popover` (Service Menu).
+
+### Features Implemented
+1.  **Landing Page**:
+    - Hero section with "Foody vibes".
+    - Menu category filtering (Momo, Noodles, Drinks).
+    - Grid display of menu items with prices and descriptions.
+    - Responsive design for mobile and desktop.
+
+2.  **Cart & Ordering**:
+    - Functional "Add to Cart" button.
+    - **Cart Sheet**: Slide-out cart displaying selected items, quantities, and total calculation.
+    - Global state management using `Zustand`.
+
+3.  **Service Request System**:
+    - Floating Action Button to access service menu.
+    - Options to "Call Waiter", "Request Water", or "Request Bill".
+
+4.  **Database (Schema Only)**:
+    - Designed Prisma schema for `MenuItem`, [Order](file:///c:/cafe/src/lib/mock-db.ts#6-14), [Review](file:///c:/cafe/src/lib/mock-db.ts#23-30).
+    - Note: Database integration is mocked in Frontend due to local environment constraints, but schema is ready for deployment.
+
+5.  **Owner/Staff Dashboard**:
+    - Accessible at `/dashboard`.
+    - Real-time (Polling) view of Active Orders.
+    - Kanban-style board: Pending -> Preparing -> Served -> Paid.
+    - Tabs for viewing **Service Requests** (Waiter/Water/Bill) and **Customer Reviews**.
+    - Notification badges for new requests.
+    - Optimistic UI updates for fast status changing.
+
+## Technical Implementation
+- **Mock Database**: Implemented a file-based JSON DB ([data/db.json](file:///c:/cafe/data/db.json)) to persist Orders, Requests, and Reviews locally.
+- **API Routes**: Created Next.js API routes (`api/orders`, `api/requests`, `api/reviews`) to handle data.
+- **Polling**: Implemented 5-second polling on the Dashboard to simulate real-time updates.
+
+## Verified Results
+
+### Automated Checks
+- `npm run dev`: Server starts successfully on port 3000.
+- `tsc`: TypeScript compilation passed.
+
+### Manual Verification Required
+1.  Open `http://localhost:3000` (Customer View).
+2.  Open `http://localhost:3000/dashboard` (Kitchen/Owner View) in a separate tab or window.
+3.  **Order Flow**: 
+    - Add items to Cart -> Place Order (Customer).
+    - Watch it appear in "Pending" on Dashboard (Owner).
+    - Click "Start Cooking" -> "Mark Served" (Owner).
+4.  **Service Request**:
+    - Click "Call Waiter" FAB (Customer).
+    - Check "Requests" tab on Dashboard (Owner).
+5.  **Reviews**:
+    - Scroll to bottom of Home page -> Submit Review.
+    - Check "Reviews" tab on Dashboard.

@@ -1,0 +1,64 @@
+# Menu System Implementation Plan
+
+The goal is to implement a fully functional, database-backed menu system for the Cafe application. Currently, the [MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#10-80) component uses mock data, and the database schema lacks the necessary `Category` and `MenuItem` models.
+
+## Proposed Changes
+
+### Database & Configuration
+
+#### [MODIFY] [schema.prisma](file:///c:/cafe/prisma/schema.prisma)
+- Add `Category` model:
+  - `id` (String, uuid, default)
+  - `nameEn` (String)
+  - `nameNp` (String)
+  - Relation to `MenuItem`
+- Add `MenuItem` model:
+  - `id` (String, uuid, default)
+  - `nameEn` (String)
+  - `nameNp` (String)
+  - `description` (String, optional)
+  - `price` (Float)
+  - `image` (String, optional)
+  - `isAvailable` (Boolean, default true)
+  - `categoryId` (String)
+  - Relation to `Category`
+  - `createdAt` (DateTime, default now)
+  - `updatedAt` (DateTime, updated at)
+
+#### [MODIFY] [package.json](file:///c:/cafe/package.json)
+- Add top-level [prisma](file:///c:/cafe/prisma/schema.prisma) config for seeding:
+  ```json
+  "prisma": {
+    "seed": "ts-node prisma/seed.ts"
+  }
+  ```
+
+### API Routes
+
+#### [NEW] [src/app/api/categories/route.ts](file:///c:/cafe/src/app/api/categories/route.ts)
+- `GET`: Fetch all categories.
+
+#### [NEW] [src/app/api/menu/route.ts](file:///c:/cafe/src/app/api/menu/route.ts)
+- `GET`: Fetch all menu items.
+- `POST`: Create a new menu item.
+
+### Frontend Components
+
+#### [MODIFY] [src/components/menu-manager/menu-manager.tsx](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx)
+- Fetch categories from `/api/categories` on mount.
+- Update [handleSubmit](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#14-30) to POST data to `/api/menu`.
+- Handle loading and error states properly.
+- (Optional) Add a list of current items to verify persistence.
+
+## Verification Plan
+
+### Automated Verification
+- Run `npx prisma migrate dev --name init_menu` to ensure schema is valid and tables are created.
+- Run `npx prisma db seed` to verify seeding works and data can be inserted.
+
+### Manual Verification
+1. **Start the app**: `npm run dev` (if not already running).
+2. **Visit Menu Manager**: Navigate to the menu management page (implicitly `/admin/menu` or similar, need to check where [MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#10-80) is used).
+3. **Verify Categories**: Check if the "Category" dropdown is populated with seeded categories (Momo, Noodles, Drinks).
+4. **Add Item**: Use the form to add a new item (e.g., "Veg Chowmein").
+5. **Verify Persistence**: Refresh the page (or check the database/API response) to ensure the item was saved.

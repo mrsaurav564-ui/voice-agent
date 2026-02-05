@@ -1,0 +1,19 @@
+# Tasks
+
+- [x] Analyze file [src/lib/prisma.ts](file:///c:/cafe/src/lib/prisma.ts) and [package.json](file:///c:/cafe/package.json)
+- [x] Fix Prisma Client Generation
+    - [x] Diagnose `DATABASE_URL` environment issue (Confirmed working with Prisma 5)
+    - [x] Verify Prisma version (Downgraded to 5.22.0)
+    - [x] Run `npx prisma generate` successfully
+- [x] Verify fix
+
+# Menu System Implementation
+- [ ] Database & Config
+    - [x] Update [schema.prisma](file:///c:/cafe/prisma/schema.prisma) with [Category](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#9-14) and `MenuItem` models
+    - [x] Update [package.json](file:///c:/cafe/package.json) with seed script
+    - [x] Run migration and seed
+- [ ] API Routes
+    - [x] Create [api/categories/route.ts](file:///c:/cafe/src/app/api/categories/route.ts)
+    - [x] Create [api/menu/route.ts](file:///c:/cafe/src/app/api/menu/route.ts)
+- [x] Frontend
+    - [x] Update [MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#15-119) component

@@ -1,0 +1,53 @@
+# Fix Apache 404 Error - Instructions
+
+## Problem
+Your [register.html](file:///d:/xampp2/htdocs/uplodedFile/register.html) file is located at [D:\xampp2\htdocs\uplodedFile\register.html](file:///d:/xampp2/htdocs/uplodedFile/register.html), but Apache's DocumentRoot is configured to look at [C:\xampp2\htdocs](file:///d:/xampp2/htdocs). This causes a 404 error when trying to access the file.
+
+## Solution: Update Apache Configuration
+
+### Step 1: Stop Apache
+1. Open XAMPP Control Panel
+2. Click **Stop** next to Apache
+
+### Step 2: Edit httpd.conf
+1. Open the file: [D:\xampp2\apache\conf\httpd.conf](file:///xampp2/apache/conf/httpd.conf) in a text editor (run as Administrator)
+2. Find this line (around line 354):
+   ```apache
+   DocumentRoot "C:/xampp2/htdocs"
+   ```
+3. Change it to:
+   ```apache
+   DocumentRoot "D:/xampp2/htdocs"
+   ```
+4. Find this line (a few lines below):
+   ```apache
+   <Directory "C:/xampp2/htdocs">
+   ```
+5. Change it to:
+   ```apache
+   <Directory "D:/xampp2/htdocs">
+   ```
+6. **Save the file**
+
+### Step 3: Restart Apache
+1. Go back to XAMPP Control Panel
+2. Click **Start** next to Apache
+
+### Step 4: Test
+Open your browser and navigate to:
+```
+http://localhost/uplodedFile/register.html
+```
+
+The page should now load successfully!
+
+---
+
+## Alternative Solution: Quick Test Without Changing Config
+
+If you want to test without changing Apache config, you can access the file directly:
+
+1. Navigate to: `http://localhost:8080` (if you have a different port configured)
+2. Or use the file path directly in browser: `file:///D:/xampp2/htdocs/uplodedFile/register.html`
+
+**Note:** The file path method won't work with the PHP API calls, so updating Apache config is the proper solution.

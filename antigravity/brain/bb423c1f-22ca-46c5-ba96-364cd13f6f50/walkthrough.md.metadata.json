@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_WALKTHROUGH",
+  "summary": "Complete walkthrough of the quiz application build including all features implemented, file structure, setup instructions, and testing guidance. Documents the full-stack application with PostgreSQL database, Node.js backend, real-time WebSocket integration, JWT authentication, and glassmorphic UI design.",
+  "updatedAt": "2025-12-29T14:10:20.584130500Z"
+}

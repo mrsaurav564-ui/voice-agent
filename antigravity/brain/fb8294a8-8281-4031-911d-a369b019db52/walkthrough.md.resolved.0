@@ -1,0 +1,45 @@
+# Walkthrough - Cafe Ordering System
+
+## Changes Made
+
+### Frontend Architecture
+- **Framework**: Initialized Next.js 14 (App Router) with Tailwind CSS v4.
+- **Theming**: Implemented "Foody" theme with Warm Orange/Terracotta primary colors and Dark/Light mode support.
+- **Components**: Built reusable Shadcn UI components: [Button](file:///c:/cafe/src/components/ui/button.tsx#35-40), `Card`, [Sheet](file:///c:/cafe/src/components/cart-sheet.tsx#20-90) (Cart), `Popover` (Service Menu).
+
+### Features Implemented
+1.  **Landing Page**:
+    - Hero section with "Foody vibes".
+    - Menu category filtering (Momo, Noodles, Drinks).
+    - Grid display of menu items with prices and descriptions.
+    - Responsive design for mobile and desktop.
+
+2.  **Cart & Ordering**:
+    - Functional "Add to Cart" button.
+    - **Cart Sheet**: Slide-out cart displaying selected items, quantities, and total calculation.
+    - Global state management using `Zustand`.
+
+3.  **Service Request System**:
+    - Floating Action Button to access service menu.
+    - Options to "Call Waiter", "Request Water", or "Request Bill".
+
+4.  **Database (Schema Only)**:
+    - Designed Prisma schema for `MenuItem`, `Order`, `Review`.
+    - Note: Database integration is mocked in Frontend due to local environment constraints, but schema is ready for deployment.
+
+## Verified Results
+
+### Automated Checks
+- `npm run dev`: Server starts successfully on port 3000.
+- `tsc`: TypeScript compilation passed after fixing `next-themes` imports.
+
+### Manual Verification Required
+Due to system limitations with the automated browser, please verify the following manually:
+1.  Open `http://localhost:3000`.
+2.  Test adding items to the cart and viewing the Total.
+3.  Test the "Call Waiter" floating button.
+4.  Toggle Dark/Light mode.
+
+## Next Steps
+- Connect the Mock Frontend to the real Prisma/Database backend.
+- Implement the "Owner Dashboard" to receive the Service Requests.

@@ -1,0 +1,32 @@
+# Task: Integrate Registration with Index.html Auth Modal
+
+## Overview
+Integrate the registration functionality directly into the existing [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html) authentication modal instead of using a separate [register.html](file:///c:/xampp2/htdocs/uplodedFile/register.html) page.
+
+## Checklist
+
+### Research Phase
+- [x] Locate the auth modal structure in [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+- [x] Identify login/signup flip mechanism
+- [x] Review existing registration form fields from [register.html](file:///c:/xampp2/htdocs/uplodedFile/register.html)
+- [x] Check database integration with [api/register.php](file:///c:/xampp2/htdocs/uplodedFile/api/register.php)
+
+### Implementation Phase
+- [x] Add registration form field IDs to the signup section in [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+  - `signupFullName`, `signupEmail`, `signupNationalId`, `signupPassword`, `signupConfirmPassword`
+- [x] Implement password validation logic
+  - At least 8 characters
+  - One uppercase letter
+  - One number
+  - One special character
+- [x] Add National ID field validation (5-20 characters)
+- [x] Connect signup form to [api/register.php](file:///c:/xampp2/htdocs/uplodedFile/api/register.php)
+- [x] Implement client-side validation
+- [x] Add error handling and toast notifications
+- [x] Ensure success redirects to [home.html](file:///c:/xampp2/htdocs/uplodedFile/home.html)
+
+### Testing Phase
+- [/] Test registration flow end-to-end
+- [ ] Verify database insertion
+- [ ] Test form validation
+- [ ] Check error messages display correctly

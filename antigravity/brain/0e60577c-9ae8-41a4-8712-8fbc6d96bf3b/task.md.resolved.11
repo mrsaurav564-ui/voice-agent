@@ -1,0 +1,33 @@
+# Task List: GenZ Quiz Application
+
+- [x] **Project Setup & Configuration**
+    - [x] Initialize Next.js project with TypeScript and Tailwind CSS
+    - [x] Configure Tailwind for glassmorphism and "Gen Z" aesthetics (colors, fonts)
+    - [x] Setup Prisma with SQLite (dev) / Postgres (prod) schema
+    - [x] Setup specialized folder structure for Admin vs Student portals
+- [x] **Authentication System**
+    - [x] Implement NextAuth.js (Auth.js)
+    - [x] Create Admin login flow (preset credentials)
+    - [x] Create Student signup/login flow
+- [x] **UI/UX Design System**
+    - [x] Create reusable "Glassy" components (Cards, Buttons, Inputs)
+    - [x] Setup layout wrapper (Navigation, Sidebar) for both portals
+- [x] **Admin Portal Features**
+    - [x] Dashboard (Overview of stats)
+    - [x] Round/Quiz Management (Create, Edit, Delete)
+    - [x] Question Bank Management
+    - [/] Student Score Review & Announcements
+- [x] **Student Portal Features**
+    - [x] Dashboard (Rank, Progress, Available Quizzes)
+    - [x] Profile Management
+    - [x] Leaderboard
+- [x] **Gameplay Engine**
+    - [x] Single Player Mode Logic
+    - [x] Multiplayer Mode (Socket.io/Real-time)
+    - [x] Timer & Score Calculation
+- [x] **Interactive Features**
+    - [x] Student Chat Room
+    - [x] AI Assistant (Gemini Integration) for explanations
+- [x] **Verification & Polish**
+    - [x] Full flow testing
+    - [x] UI Polish & Animations

@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Comprehensive task breakdown for building a full-stack quiz application with PostgreSQL database, Node.js backend, real-time features, and glassy frontend design. Covers project setup, database design, backend API development, authentication, user and admin interfaces, real-time synchronization, and testing.",
+  "updatedAt": "2025-12-29T13:55:09.317664400Z"
+}

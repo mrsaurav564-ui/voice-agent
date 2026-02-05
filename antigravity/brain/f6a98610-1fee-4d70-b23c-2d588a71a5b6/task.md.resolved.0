@@ -1,0 +1,7 @@
+# Tasks
+
+- [x] Analyze file [src/lib/prisma.ts](file:///c:/cafe/src/lib/prisma.ts) and [package.json](file:///c:/cafe/package.json)
+- [ ] Fix Prisma Client Generation
+    - [/] Diagnose `DATABASE_URL` environment issue
+    - [ ] Run `npx prisma generate` successfully
+- [ ] Verify fix

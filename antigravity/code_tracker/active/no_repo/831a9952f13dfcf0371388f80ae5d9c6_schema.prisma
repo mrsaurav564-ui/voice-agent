@@ -1,0 +1,76 @@
+ˆdatasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+model User {
+  id        String   @id @default(cuid())
+  username  String   @unique
+  password  String
+  role      String   @default("STUDENT") // ADMIN or STUDENT
+  createdAt DateTime @default(now())
+  
+  results   Result[]
+  messages  Message[]
+}
+
+model Quiz {
+  id          String   @id @default(cuid())
+  title       String
+  description String?
+  accessCode  String?  @unique
+  isActive    Boolean  @default(false)
+  createdAt   DateTime @default(now())
+  
+  rounds      Round[]
+  results     Result[]
+}
+
+model Round {
+  id        String   @id @default(cuid())
+  quizId    String
+  title     String
+  type      String   // GENERAL, VISUAL, RAPID, etc.
+  order     Int
+  
+  quiz      Quiz     @relation(fields: [quizId], references: [id], onDelete: Cascade)
+  questions Question[]
+}
+
+model Question {
+  id        String   @id @default(cuid())
+  roundId   String
+  content   String
+  image     String?  // For visual rounds
+  options   String   // JSON string of options ["A", "B", "C", "D"]
+  answer    String
+  points    Int      @default(10)
+  timeLimit Int      @default(30)
+  
+  round     Round    @relation(fields: [roundId], references: [id], onDelete: Cascade)
+}
+
+model Result {
+  id        String   @id @default(cuid())
+  userId    String
+  quizId    String
+  score     Int
+  completedAt DateTime @default(now())
+  
+  user      User     @relation(fields: [userId], references: [id])
+  quiz      Quiz     @relation(fields: [quizId], references: [id])
+}
+
+model Message {
+  id        String   @id @default(cuid())
+  content   String
+  senderId  String
+  createdAt DateTime @default(now())
+  
+  sender    User     @relation(fields: [senderId], references: [id])
+}
+ *cascade08!*cascade08!$*cascade08$& *cascade08&@ *cascade08@G *cascade08Gˆ *cascade082$file:///c:/quiz/prisma/schema.prisma

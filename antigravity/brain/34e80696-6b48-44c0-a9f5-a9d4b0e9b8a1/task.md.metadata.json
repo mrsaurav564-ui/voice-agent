@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Checklist for fixing the Apache 404 error by updating the DocumentRoot configuration to point to the D: drive where the project files are located.",
+  "updatedAt": "2025-11-21T00:57:57.397444900Z"
+}

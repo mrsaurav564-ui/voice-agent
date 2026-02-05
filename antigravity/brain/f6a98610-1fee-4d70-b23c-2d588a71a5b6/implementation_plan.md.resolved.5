@@ -1,0 +1,39 @@
+# Image Upload Implementation Plan
+
+The goal is to allow the cafe owner to upload images when adding new menu items in the dashboard.
+
+## Challenges
+- **File Handling**: Next.js App Router API routes handle `FormData`. We need to parse this and save the file to the disk (`public/uploads`).
+- **Form Submission**: The [MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#15-119) currently likely uses JSON. It needs to switch to `FormData` for multipart uploads.
+- **Node.js File System**: We'll use `fs` and `path` to save files locally.
+
+## Proposed Solution
+
+1.  **Frontend ([MenuManager](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#15-119))**
+    - Replace the "Image URL" input with a `<Input type="file" />`.
+    - Update the [handleSubmit](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx#27-63) function to construct a `FormData` object.
+    - Append all text fields and the file to `FormData`.
+
+2.  **Backend (`/api/menu`)**
+    - Update [POST](file:///c:/cafe/src/app/api/reviews/route.ts#21-42) handler to read `formData()`.
+    - Extract the file.
+    - Generate a unique filename (e.g., `timestamp-filename`).
+    - Write the file buffer to `public/uploads`.
+    - Save the public URL (e.g., `/uploads/filename.png`) to the database.
+
+## Detailed Changes
+
+### API ([src/app/api/menu/route.ts](file:///c:/cafe/src/app/api/menu/route.ts))
+- Import `writeFile` from `fs/promises`.
+- Ensure `public/uploads` directory exists.
+- Logic to save file and get path.
+
+### Component ([src/components/menu-manager/menu-manager.tsx](file:///c:/cafe/src/components/menu-manager/menu-manager.tsx))
+- Add file state `const [file, setFile] = useState<File | null>(null)`.
+- Update input to `type="file"`.
+- Update fetch call body to use `formData`.
+
+## Verification
+- Add a new item with an image via Dashboard.
+- Verify the image appears in `public/uploads`.
+- Verify the item appears on the Home page with the uploaded image.

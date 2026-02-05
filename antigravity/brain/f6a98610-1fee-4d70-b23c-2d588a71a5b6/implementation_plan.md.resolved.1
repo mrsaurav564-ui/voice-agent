@@ -1,0 +1,32 @@
+# PostgreSQL Migration Plan
+
+The goal is to switch the application's database from SQLite to PostgreSQL as requested.
+
+## User Review Required
+> [!IMPORTANT]
+> **Database Credentials**: You will need to provide a valid PostgreSQL connection string in the [.env](file:///c:/cafe/.env) file. I will set a placeholder value, but you must update it with your actual credentials.
+
+## Proposed Changes
+
+### Configuration
+
+#### [MODIFY] [schema.prisma](file:///c:/cafe/prisma/schema.prisma)
+- Change `datasource` provider from `"sqlite"` to `"postgresql"`.
+
+#### [MODIFY] [.env](file:///c:/cafe/.env)
+- Update `DATABASE_URL` to a PostgreSQL connection string format: `postgresql://johndoe:randompassword@localhost:5432/mydb?schema=public`
+
+### Database Operations
+- Delete `prisma/migrations` folder (since we are switching providers, old SQLite migrations won't work).
+- Run `npx prisma migrate dev --name init_postgres` to initialize the new database.
+- Run `npx prisma db seed` to repopulate the database.
+
+## Verification Plan
+
+### Automated Verification
+- Migration command success.
+- Seed command success.
+- `npx prisma studio` (optional) or checking API endpoints to verify data exists.
+
+### Manual Verification
+- Start the app and verify the Menu Manager still loads categories and items.

@@ -1,0 +1,33 @@
+# School Management Ecosystem - Task List
+
+- [x] Project Initialization <!-- id: 0 -->
+    - [x] Create project structure (`client` and `server` directories) <!-- id: 1 -->
+    - [x] Initialize Next.js app in `client` <!-- id: 2 -->
+    - [x] Initialize Express app in `server` <!-- id: 3 -->
+    - [x] Set up Tailwind CSS in `client` <!-- id: 4 -->
+- [x] Database Design & Setup <!-- id: 5 -->
+    - [x] Design PostgreSQL Schema (Users, Students, Attendance, Results) <!-- id: 6 -->
+    - [x] Set up Database Connection (Sequelize/Prisma/TypeORM - likely Prisma or raw pg for "Node/Express") <!-- id: 7 -->
+- [x] Backend Implementation <!-- id: 8 -->
+    - [x] Setup Authentication (JWT) <!-- id: 9 -->
+    - [x] Implement Users API (Implicit in Auth) <!-- id: 10 -->
+    - [x] Implement Students API <!-- id: 11 -->
+    - [x] Implement Attendance API <!-- id: 12 -->
+    - [x] Implement Results API <!-- id: 13 -->
+- [x] Frontend Implementation - Public Interface (Guest) <!-- id: 14 -->
+    - [x] Landing Page (Hero, History, Trust Gallery) <!-- id: 15 -->
+    - [x] Apply Now Wizard (Floating) <!-- id: 16 -->
+- [x] Frontend Implementation - Student/Parent Dashboard <!-- id: 17 -->
+    - [x] Dashboard Layout & Navigation <!-- id: 18 -->
+    - [x] Timetable Grid <!-- id: 19 -->
+    - [x] Fee Status Cards <!-- id: 20 -->
+    - [x] Results/GPA Tracker <!-- id: 21 -->
+    - [x] Notification Center <!-- id: 22 -->
+- [/] Frontend Implementation - Admin/Registrar Panel <!-- id: 23 -->
+    - [/] Dashboard Overview & Analytics <!-- id: 24 -->
+    - [ ] Student Database Table (Searchable) <!-- id: 25 -->
+    - [ ] Attendance Analytics Chart <!-- id: 26 -->
+    - [ ] Bulk Communication Tool <!-- id: 27 -->
+- [ ] Verification & Polish <!-- id: 28 -->
+    - [ ] End-to-end testing of critical flows <!-- id: 29 -->
+    - [ ] UI/UX Polish (Animations, Loading States) <!-- id: 30 -->

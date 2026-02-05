@@ -1,0 +1,7 @@
+- [ ] Explore `index.html` to understand current login structure <!-- id: 0 -->
+- [ ] Create `implementation_plan.md` <!-- id: 1 -->
+- [ ] Create `loginc.html` for Citizen <!-- id: 2 -->
+- [ ] Create `logins.html` for Federal/State <!-- id: 3 -->
+- [ ] Create `loginp.html` for Province <!-- id: 4 -->
+- [ ] Create `loginl.html` for Local <!-- id: 5 -->
+- [ ] Verify the new pages <!-- id: 6 -->

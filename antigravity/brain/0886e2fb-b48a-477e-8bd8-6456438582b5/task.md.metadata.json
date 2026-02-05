@@ -1,0 +1,6 @@
+{
+  "artifactType": "ARTIFACT_TYPE_TASK",
+  "summary": "Fixing TypeScript error in menu-manager.tsx related to Timeout type not being callable.",
+  "updatedAt": "2026-01-31T15:26:15.265416100Z",
+  "version": "1"
+}

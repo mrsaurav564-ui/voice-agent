@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_IMPLEMENTATION_PLAN",
+  "summary": "Detailed implementation plan for building a sophisticated federal-local conflict coordination platform. Covers complete system architecture including database schema, PHP backend APIs for authentication, project management, conflict tracking, and AI analysis, along with role-based frontend dashboards using HTML, Tailwind CSS, and JavaScript. Includes security configurations, notification system, analytics with Chart.js visualizations, and comprehensive verification plan. The plan addresses all MVP features: user authentication, project management, conflict reporting, AI-powered analysis, notifications, and analytics dashboard.",
+  "updatedAt": "2025-11-21T07:50:23.752793500Z"
+}

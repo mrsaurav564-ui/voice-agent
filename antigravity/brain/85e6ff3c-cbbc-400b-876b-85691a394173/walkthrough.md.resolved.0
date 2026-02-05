@@ -1,0 +1,32 @@
+# Voice AI Agent - Walkthrough
+
+## Overview
+We have built a web-based Voice AI Agent that allows users to have a conversation with an AI.
+It uses **Deepgram** to listen, **OpenAI** to think, and **ElevenLabs** to speak.
+
+## Features
+- **Voice Recording**: Click-to-talk interface using the browser microphone.
+- **Transcription**: Real-time speech-to-text powered by Deepgram Nova-2.
+- **Intelligent Response**: GPT-4o generates context-aware replies.
+- **Voice Synthesis**: ElevenLabs generates a natural-sounding voice response.
+- **Visual Interface**: A modern, dark-themed UI with a glassmorphism effect.
+
+## How to Run
+1.  Ensure dependencies are installed: `npm install`
+2.  Start the development server: `npm run dev`
+3.  Open [http://localhost:3000](http://localhost:3000) in your browser.
+
+## Verification Steps (Manual)
+1.  **Grant Permissions**: When you first load the page, allow microphone access if prompted.
+2.  **Start Conversation**: Click the microphone icon. It will turn red and pulse.
+3.  **Speak**: Say something like "Hello, who are you?".
+4.  **Stop**: Click the microphone again to stop recording.
+5.  **Wait**:
+    -   You should see "Thinking..."
+    -   Then your text will appear on the screen.
+    -   The AI's text will appear.
+    -   You should **hear** the AI response.
+
+## Troubleshooting
+-   **No Audio?**: Check your system volume. Ensure the browser tab is not muted.
+-   **Conversation Failed?**: Check the terminal logs for API errors. Verify your API keys in [.env.local](file:///C:/Users/HP/.gemini/antigravity/scratch/voice-ai-agent/.env.local).

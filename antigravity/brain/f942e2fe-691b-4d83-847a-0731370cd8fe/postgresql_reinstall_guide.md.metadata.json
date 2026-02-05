@@ -1,0 +1,5 @@
+{
+  "artifactType": "ARTIFACT_TYPE_OTHER",
+  "summary": "Complete step-by-step guide for uninstalling PostgreSQL 18 from Windows and reinstalling it fresh. Includes service removal (already completed), directory cleanup, registry cleanup, fresh installation steps, verification commands, database restoration procedures, and troubleshooting tips. Also includes specific guidance for the user's quiz application database restoration.",
+  "updatedAt": "2025-12-09T00:21:31.565194700Z"
+}

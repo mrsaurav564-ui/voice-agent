@@ -1,0 +1,99 @@
+# Implementation Plan: Registration Success & Social Login
+
+## Goal Description
+
+Enhance the registration success experience by displaying a styled success message within the modal (instead of just a toast), and implement real Google and Facebook OAuth login functionality with backend API integration.
+
+## User Review Required
+
+> [!IMPORTANT]
+> **OAuth Setup Required** - To use Google and Facebook login, you'll need to:
+> 1. Create a Google Cloud Project and get OAuth credentials
+> 2. Create a Facebook App and get App ID/Secret
+> 3. Configure authorized redirect URIs
+
+> [!WARNING]
+> **For this implementation, I'll create the OAuth integration structure, but you'll need to add your actual API keys.**
+
+## Proposed Changes
+
+### Part 1: Success Message Enhancement
+
+#### [MODIFY] [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+
+**Add Success Message Overlay (after line 2942, before closing auth modal):**
+- Add a success overlay div inside the auth modal
+- Style it to match existing modal design (dark theme, glassmorphism)
+- Include success icon, message text, and loading indicator
+- Initially hidden with `display: none`
+
+**Update JavaScript [signupWithCredentials()](file:///c:/xampp2/htdocs/uplodedFile/index.html#3656-3751) function:**
+- After successful API response, show success overlay in modal
+- Hide the signup form
+- Display success message: "Account created successfully! You will be redirected soon"
+- Wait 3 seconds, then redirect to [home.html](file:///c:/xampp2/htdocs/uplodedFile/home.html)
+- Close modal on redirect
+
+### Part 2: Social Login Integration
+
+#### [NEW] [api/google-login.php](file:///c:/xampp2/htdocs/uplodedFile/api/google-login.php)
+- Handle Google OAuth token verification
+- Exchange authorization code for access token
+- Fetch user profile from Google API
+- Create/update user in database
+- Return session data
+
+#### [NEW] [api/facebook-login.php](file:///c:/xampp2/htdocs/uplodedFile/api/facebook-login.php)
+- Handle Facebook OAuth token verification
+- Exchange authorization code for access token
+- Fetch user profile from Facebook Graph API
+- Create/update user in database
+- Return session data
+
+#### [MODIFY] [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+
+**Update Social Login Buttons:**
+- Replace placeholder [socialLogin()](file:///c:/xampp2/htdocs/uplodedFile/index.html#3753-3763) function with real OAuth flows
+- Google button: Initiate Google OAuth 2.0 flow
+- Facebook button: Initiate Facebook Login flow
+- Handle OAuth callbacks and token exchange
+
+**Add OAuth Configuration:**
+- Add configuration object for OAuth client IDs
+- Add redirect URI handling
+- Add popup window management for OAuth flows
+
+## Verification Plan
+
+### Manual Testing
+
+**Test 1: Registration Success Message**
+1. Register a new account
+2. Verify success overlay appears in modal (not toast)
+3. Check message styling matches existing design
+4. Confirm 3-second delay before redirect
+5. Verify redirect to [home.html](file:///c:/xampp2/htdocs/uplodedFile/home.html)
+
+**Test 2: Google Login**
+1. Click Google login button
+2. Verify Google OAuth consent screen appears
+3. Authorize the app
+4. Verify callback handling
+5. Check user created in database
+6. Confirm redirect to dashboard
+
+**Test 3: Facebook Login**
+1. Click Facebook login button
+2. Verify Facebook login dialog appears
+3. Authorize the app
+4. Verify callback handling
+5. Check user created in database
+6. Confirm redirect to dashboard
+
+### Database Verification
+```sql
+-- Check users created via social login
+SELECT * FROM users WHERE email = 'your-google-email@gmail.com';
+SELECT * FROM user_profiles WHERE national_id LIKE 'GOOGLE-%';
+SELECT * FROM user_profiles WHERE national_id LIKE 'FB-%';
+```

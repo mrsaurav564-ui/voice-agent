@@ -1,0 +1,31 @@
+# Why the Deployment Failed
+
+You are seeing a "Page Not Found" or 404 error on Netlify because this application is currently designed for **Local Development** using **SQLite**, which is not compatible with serverless hosting platforms like Netlify or Vercel out of the box.
+
+## The Problem
+
+1.  **Missing Database**:
+    *   The application uses a local file database (`dev.db`).
+    *   This file is correctly ignored by git (in [.gitignore](file:///c:/cafe/.gitignore)) to prevent uploading sensitive data.
+    *   When Netlify builds your site, it doesn't have this database file, so the application crashes immediately when it tries to connect.
+
+2.  **Read-Only Filesystem**:
+    *   Netlify and Vercel are "serverless" platforms. Their file systems are **read-only** at runtime.
+    *   This means **SQLite** cannot write data (even if you uploaded the file).
+    *   **Image Uploads** to `public/uploads` will also fail because the server cannot save new files to disk.
+
+## How to Fix It (For Production)
+
+To deploy this application online, you would need to "Cloudify" the architecture:
+
+1.  **Switch Database**: Migrate from SQLite to a Cloud Postgres database (e.g., **Neon.tech** or **Supabase**).
+2.  **Switch Storage**: Change the image upload logic to use a Cloud Storage service (e.g., **Cloudinary** or **UploadThing**) instead of saving to `public/uploads`.
+3.  **Environment Variables**: accurate `DATABASE_URL` and API keys must be set in the Netlify project settings.
+
+## Recommendation
+
+For now, the intended way to run this project is **Locally** on your computer:
+1.  Run `npm run dev`.
+2.  Open `http://localhost:3000`.
+
+If you specifically need it online for a demo, the easiest path is to use a **VPS** (Virtual Private Server) like a Droplet on DigitalOcean ($5/mo) where you can run the exact same code you have now without changing anything.

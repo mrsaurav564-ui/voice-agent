@@ -1,0 +1,28 @@
+# Task: Integrate Registration with Index.html Auth Modal
+
+## Overview
+Integrate the registration functionality directly into the existing [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html) authentication modal instead of using a separate [register.html](file:///c:/xampp2/htdocs/uplodedFile/register.html) page.
+
+## Checklist
+
+### Research Phase
+- [/] Locate the auth modal structure in [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+- [ ] Identify login/signup flip mechanism
+- [ ] Review existing registration form fields from [register.html](file:///c:/xampp2/htdocs/uplodedFile/register.html)
+- [ ] Check database integration with [api/register.php](file:///c:/xampp2/htdocs/uplodedFile/api/register.php)
+
+### Implementation Phase
+- [ ] Add registration form fields to the signup section in [index.html](file:///c:/xampp2/htdocs/uplodedFile/index.html)
+- [ ] Integrate password strength checker
+- [ ] Add National ID field validation
+- [ ] Connect signup form to [api/register.php](file:///c:/xampp2/htdocs/uplodedFile/api/register.php)
+- [ ] Implement client-side validation
+- [ ] Add error handling and toast notifications
+- [ ] Ensure flip animation works between login and signup
+
+### Testing Phase
+- [ ] Test registration flow end-to-end
+- [ ] Verify database insertion
+- [ ] Test form validation
+- [ ] Check responsive design
+- [ ] Verify error messages display correctly
